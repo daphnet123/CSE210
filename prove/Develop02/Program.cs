@@ -102,7 +102,9 @@ public class Program
             "What was the best part of my day?",
             "How did I see the hand of the Lord in my life today?",
             "What was the strongest emotion I felt today?",
-            "If I had one thing I could do over today, what would it be?"
+            "If I had one thing I could do over today, what would it be?",
+            "How can I help others feel God's love today?",
+            "What scripture has impacted your life today?"
         };
 
         bool running = true;
