@@ -30,7 +30,7 @@ public class ReflectingActivity : Activity
 
         PauseWithCountdown(5);
 
-        DateTime endTime = DateTime.Now.AddSeconds(_duration - 5); // Account for initial pause
+        DateTime endTime = DateTime.Now.AddSeconds(_duration - 10); 
 
         foreach (string question in _questions)
         {
@@ -40,7 +40,7 @@ public class ReflectingActivity : Activity
             }
 
             Console.WriteLine("\n" + question);
-            PauseWithCountdown(3); // Brief pause for reflection
+            PauseWithCountdown(10); 
         }
 
         DisplayEndMessage();

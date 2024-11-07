@@ -4,7 +4,7 @@ public class Activity
     protected string _description;
     protected int _duration;
 
-    public Activity(string name, string description, int duration = 300) // Set default duration to 5 minutes (300 seconds)
+    public Activity(string name, string description, int duration = 300) 
     {
         _name = name;
         _description = description;
