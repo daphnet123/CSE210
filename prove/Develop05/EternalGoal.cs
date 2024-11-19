@@ -1,15 +1,16 @@
 public class EternalGoal : Goal
 {
     public EternalGoal(string name, string description, int points)
-        : base(name, description, points) { }
-
-    public override int RecordEvent()
+        : base(name, description, points)
     {
-        return _points; // No completion, points awarded every time
     }
 
-    public override bool IsComplete()
+    public override int RecordEvent() => _points;
+
+    public override bool IsComplete() => false;
+
+    public override void Display()
     {
-        return false; // Eternal goals are never completed
+        Console.WriteLine($"[∞] {_name}: {_description} - {_points} points");
     }
 }

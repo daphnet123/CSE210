@@ -1,16 +1,28 @@
 public class SimpleGoal : Goal
 {
-    public SimpleGoal(string name, string description, int points)
-        : base(name, description, points) { }
+    private bool _isCompleted;
+
+    public SimpleGoal(string name, string description, int points) 
+        : base(name, description, points)
+    {
+        _isCompleted = false;
+    }
 
     public override int RecordEvent()
     {
-        _isCompleted = true;
-        return _points;
+        if (!_isCompleted)
+        {
+            _isCompleted = true;
+            return _points;
+        }
+        return 0;
     }
 
-    public override bool IsComplete()
+    public override bool IsComplete() => _isCompleted;
+
+    public override void Display()
     {
-        return _isCompleted;
+        string status = _isCompleted ? "[X]" : "[ ]";
+        Console.WriteLine($"{status} {_name}: {_description} - {_points} points");
     }
 }

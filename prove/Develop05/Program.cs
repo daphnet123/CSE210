@@ -1,87 +1,57 @@
 using System;
+using System.Collections.Generic;
 
 class Program
 {
-    static void Main()
+    static void Main(string[] args)
     {
         GoalManager goalManager = new GoalManager();
         ProgressTracker progressTracker = new ProgressTracker();
-        UserInterface ui = new UserInterface();
         FileHandler fileHandler = new FileHandler();
 
-        // Load saved data if available
+        // Load data
         (goalManager, progressTracker) = fileHandler.LoadData();
 
-        bool isRunning = true;
-        while (isRunning)
+        while (true)
         {
-            ui.DisplayMainMenu();
-            int choice = ui.GetUserChoice();
+            Console.WriteLine("\n=== Goal Tracker ===");
+            Console.WriteLine("1. Create New Goal");
+            Console.WriteLine("2. View Goals");
+            Console.WriteLine("3. Record Progress");
+            Console.WriteLine("4. Save and Exit");
+
+            Console.Write("Choose an option: ");
+            string choice = Console.ReadLine();
 
             switch (choice)
             {
-                case 1: // Create Goal
-                    ui.DisplayGoalCreationOptions();
-                    int goalType = int.Parse(Console.ReadLine());
-                    Goal newGoal = null;
-
-                    switch (goalType)
-                    {
-                        case 1: // Simple Goal
-                            Console.Write("Enter Goal Name: ");
-                            string simpleName = Console.ReadLine();
-                            Console.Write("Enter Goal Description: ");
-                            string simpleDescription = Console.ReadLine();
-                            Console.Write("Enter Goal Points: ");
-                            int simplePoints = int.Parse(Console.ReadLine());
-                            newGoal = new SimpleGoal(simpleName, simpleDescription, simplePoints);
-                            break;
-                        case 2: // Eternal Goal
-                            Console.Write("Enter Goal Name: ");
-                            string eternalName = Console.ReadLine();
-                            Console.Write("Enter Goal Description: ");
-                            string eternalDescription = Console.ReadLine();
-                            Console.Write("Enter Goal Points: ");
-                            int eternalPoints = int.Parse(Console.ReadLine());
-                            newGoal = new EternalGoal(eternalName, eternalDescription, eternalPoints);
-                            break;
-                        case 3: // Checklist Goal
-                            Console.Write("Enter Goal Name: ");
-                            string checklistName = Console.ReadLine();
-                            Console.Write("Enter Goal Description: ");
-                            string checklistDescription = Console.ReadLine();
-                            Console.Write("Enter Goal Points: ");
-                            int checklistPoints = int.Parse(Console.ReadLine());
-                            Console.Write("Enter Target Count: ");
-                            int targetCount = int.Parse(Console.ReadLine());
-                            Console.Write("Enter Bonus Points: ");
-                            int bonusPoints = int.Parse(Console.ReadLine());
-                            newGoal = new ChecklistGoal(checklistName, checklistDescription, checklistPoints, targetCount, bonusPoints);
-                            break;
-                    }
-                    if (newGoal != null)
-                    {
-                        goalManager.AddGoal(newGoal);
-                    }
+                case "1":
+                    goalManager.CreateGoal();
                     break;
-                case 2: // Display Goals
+                case "2":
                     goalManager.DisplayGoals();
                     break;
-                case 3: // Track Goal
-                    Console.Write("Enter goal name to track: ");
-                    string goalToTrack = Console.ReadLine();
-                    var goal = goalManager.GetGoals().Find(g => g.Name.Equals(goalToTrack, StringComparison.OrdinalIgnoreCase));
-                    if (goal != null)
+                case "3":
+                    Console.WriteLine("Enter the goal number to record progress:");
+                    int goalIndex = int.Parse(Console.ReadLine()) - 1;
+                    Goal selectedGoal = goalManager.GetGoal(goalIndex);
+                    if (selectedGoal != null)
                     {
-                        progressTracker.AddPoints(goal.RecordEvent());
+                        int points = selectedGoal.RecordEvent();
+                        progressTracker.AddPoints(points);
+                        Console.WriteLine($"Progress recorded! You earned {points} points.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid goal number.");
                     }
                     break;
-                case 4: // Save and Exit
+                case "4":
                     fileHandler.SaveData(goalManager, progressTracker);
-                    isRunning = false;
-                    break;
+                    Console.WriteLine("Data saved. Goodbye!");
+                    return;
                 default:
-                    Console.WriteLine("Invalid option.");
+                    Console.WriteLine("Invalid choice. Please try again.");
                     break;
             }
         }
