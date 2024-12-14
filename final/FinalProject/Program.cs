@@ -27,6 +27,10 @@ namespace ADHDToDoListApp
             user.AddPoints(event1.CalculatePoints());
 
             Console.WriteLine(user.CheckProgress());
+
+            Console.WriteLine("Visit the project repository for more details: https://github.com/daphnet123/CSE210.git");
+            // Project repository: https://github.com/daphnet123/CSE210.git //
+
         }
     }
 }
