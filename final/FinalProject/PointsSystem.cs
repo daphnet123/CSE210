@@ -21,9 +21,9 @@ namespace ADHDToDoListApp
             if (totalPoints >= badgeThreshold)
             {
                 totalPoints -= badgeThreshold; 
-                return "Congratulations! You earned a badge!";
+                return "Congratulations! You earned a new badge!";
             }
-            return "Keep going! You're close to earning a badge.";
+            return "Keep going! You're close to earning a new badge.";
         }
     }
 }
