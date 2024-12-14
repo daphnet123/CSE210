@@ -3,17 +3,14 @@ using System.Collections.Generic;
 
 namespace ADHDToDoListApp
 {
-    public class Event
+    public class Event : Activity
     {
-        private string name;
         private List<Room> rooms;
-        private int duration; 
         private List<Alert> reminders;
 
-        public Event(string name, int duration)
+        public Event(string name, DateTime scheduledTime)
+            : base(name, scheduledTime)
         {
-            this.name = name;
-            this.duration = duration;
             rooms = new List<Room>();
             reminders = new List<Alert>();
         }
@@ -21,23 +18,26 @@ namespace ADHDToDoListApp
         public void AddRoom(Room room)
         {
             rooms.Add(room);
-            Console.WriteLine($"Room '{room}' added to event '{name}'!");
+            Console.WriteLine($"Room '{room}' added to event '{Name}'.");
         }
 
         public void AddReminder(Alert alert)
         {
             reminders.Add(alert);
-            Console.WriteLine($"Reminder added to event '{name}'!");
+            Console.WriteLine($"Reminder added to event '{Name}'.");
         }
 
-        public int CalculatePoints()
+        public override int CalculatePoints()
         {
-            int totalPoints = 0;
-            foreach (var room in rooms)
+            return rooms.Count * 100; // Example scoring system
+        }
+
+        public void CheckReminders()
+        {
+            foreach (var reminder in reminders)
             {
-                totalPoints += 100; 
+                reminder.TriggerAlert(ScheduledTime);
             }
-            return totalPoints;
         }
     }
 }

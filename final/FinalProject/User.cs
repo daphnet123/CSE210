@@ -11,10 +11,15 @@ namespace ADHDToDoListApp
             badges = 0;
         }
 
-        public void AddPoints(int points)
+        public void AddPoints(int earnedPoints)
         {
-            this.points += points;
-            Console.WriteLine($"Points added! Current points: {this.points}");
+            points += earnedPoints;
+
+            // Award badges for milestones
+            if (points >= 500 && badges < 1) badges = 1;
+            if (points >= 1000 && badges < 2) badges = 2;
+
+            Console.WriteLine($"Points added! Current points: {points}");
         }
 
         public string CheckProgress()

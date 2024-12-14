@@ -1,21 +1,26 @@
+using System;
+
 namespace ADHDToDoListApp
 {
     public class Alert
     {
         private string type;
-        private int time; 
+        private DateTime triggerTime;
         private string soundPreference;
 
-        public Alert(string type, int time, string soundPreference)
+        public Alert(string type, DateTime triggerTime, string soundPreference)
         {
             this.type = type;
-            this.time = time;
+            this.triggerTime = triggerTime;
             this.soundPreference = soundPreference;
         }
 
-        public void TriggerAlert()
+        public void TriggerAlert(DateTime eventTime)
         {
-            Console.WriteLine($"[ALERT]: {type} alert triggered {time} minutes before event!");
+            if (DateTime.Now >= triggerTime && DateTime.Now <= eventTime)
+            {
+                Console.WriteLine($"[ALERT]: {type} alert! Time: {triggerTime}. Sound: {soundPreference}.");
+            }
         }
     }
 }

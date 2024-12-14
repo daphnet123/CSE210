@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace ADHDToDoListApp
 {
@@ -10,22 +11,24 @@ namespace ADHDToDoListApp
 
             User user = new User();
 
+            // Room and Tasks
             Room kitchen = new Room("Kitchen");
-            Task task1 = new Task("Wash dishes", "Kitchen");
-            Task task2 = new Task("Wipe counters", "Kitchen");
+            kitchen.AddTask(new Task("Wash dishes"));
+            kitchen.AddTask(new Task("Wipe counters"));
 
-            kitchen.AddTask(task1);
-            kitchen.AddTask(task2);
+            // Event and Alerts
+            Event friendsgiving = new Event("Friendsgiving", DateTime.Now.AddMinutes(60));
+            friendsgiving.AddRoom(kitchen);
+            friendsgiving.AddReminder(new Alert("Reminder", DateTime.Now.AddMinutes(30), "Chime"));
 
-            Event event1 = new Event("Friendsgiving", 60);
-            event1.AddRoom(kitchen);
+            // Marking task as completed and earning points
+            kitchen.GetTasks()[0].MarkComplete();
+            user.AddPoints(friendsgiving.CalculatePoints());
 
-            Alert alert1 = new Alert("Reminder", 30, "Chime");
-            event1.AddReminder(alert1);
+            // Trigger alerts
+            friendsgiving.CheckReminders();
 
-            task1.MarkComplete();
-            user.AddPoints(event1.CalculatePoints());
-
+            // Display user progress
             Console.WriteLine(user.CheckProgress());
 
             Console.WriteLine("Visit the project repository for more details: https://github.com/daphnet123/CSE210.git");

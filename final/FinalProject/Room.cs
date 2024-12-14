@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace ADHDToDoListApp
@@ -17,7 +16,7 @@ namespace ADHDToDoListApp
         public void AddTask(Task task)
         {
             tasks.Add(task);
-            Console.WriteLine($"Task added to {name}!");
+            Console.WriteLine($"Task '{task.GetStatus()}' added to {name}.");
         }
 
         public List<Task> GetTasks()
